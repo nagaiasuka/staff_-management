@@ -10,7 +10,7 @@
     
 スタッフ管理<br>
 <br>
-<form action="staff_add.check" method="post">
+<form action="staff_add_check.php" method="post">
     スタッフ名を入力してください。<br>
     <input type="text" name="name" style="width:200px"><br>
     パスワードを入力して下さい。<br>
