@@ -47,7 +47,7 @@
     }else{
         $staff_pass=md5($staff_pass);
         print '<form action="staff_edit_done.php" method="post">';
-        print '<input type="hidden" name="name" value="'.$staff_code.'">';
+        print '<input type="hidden" name="code" value="'.$staff_code.'">';
         print '<input type="hidden" name="name" value="'.$staff_name.'">';
         print '<input type="hidden" name="pass" value="'.$staff_pass.'">';
         print '<input type="button" onclick="history.back()" value="戻る">';
