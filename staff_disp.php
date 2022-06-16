@@ -8,7 +8,10 @@
 </head>
 <body>
     <?php
+    // $staff_code=$_GET["staff_code"];
     try {
+        $staff_code =$_GET['staffcode'];
+
         // データベース接続
         $dsn = 'mysql:dbname=shop;host=localhost;charset=utf8';
         $user = 'root';
@@ -17,37 +20,37 @@
         $dbh ->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
     
         // SQL文を使ってレコードを追加
-        $sql = 'SELECT code,name FROM mst_staff WHERE 1';
+        $sql = 'SELECT name FROM mst_staff WHERE code=?';
 
         $stmt = $dbh->prepare($sql);
-        $stmt->execute();
+        $data[] =$staff_code;
+        $stmt->execute($data);
+
+        $rec=$stmt->fetch(PDO::FETCH_ASSOC);
+        $staff_name=$rec['name'];
     
         // データベースからの切断
         $dbh=null;
-
-        print 'スタッフ一覧<br><br>';
-
-        print '<form method="post" action="staff_branch.php" >';
-        while(true){
-            $rec = $stmt->fetch(PDO::FETCH_ASSOC);
-            if($rec == false){
-                break;
-            }
-            print '<input type="radio" name="staffcode" value="'.$rec['code'].'">';
-            print $rec['name'];
-            print '<br>';
-        }
-        print '<input type="submit" name="disp" value="参照" >';
-        print '<input type="submit" name="add" value="追加" >';
-        print '<input type="submit" name="edit" value="修正" >';
-        print '<input type="submit" name="delete" value="削除" >';
-        print '</form>';
     }
-    catch(Exception $e) {
+    catch (\Exception $e) {
         print $e->getMessage();
         print 'ただいま障害をにより大変ご迷惑をおかけしております。';
         exit();
     }
     ?>
+
+    スタッフ情報参照<br>
+    <br>
+    スタッフコード<br>
+    <?php print $staff_code; ?>
+    <br>
+    スタッフ名前<br>
+    <?php print $staff_name; ?>
+    <br>
+    <br>
+    <form>
+        <input type="button" onclick="history.back()" value="戻る">
+    </form>
+
 </body>
 </html>
